@@ -67,14 +67,11 @@ client.connect(err => {
 
 
   app.get('/adminServices', (req, res) => {
-    adminServiceCollection.find({})
+    adminServiceCollection.find({}).sort({_id:-1}).limit(3)
       .toArray((err, documents) => {
       res.send(documents)
     })
   })
-
-
-
 
 
   app.post('/addServices', (req, res) => {
