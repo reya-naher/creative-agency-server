@@ -75,10 +75,13 @@ client.connect(err => {
 
 
   app.post('/addServices', (req, res) => {
-    const tasks = req.body;
+    const name = req.body.name;
+    const email = req.body.email;
+    const price = req.body.price;
+    const service = req.body.work;
+    const description = req.body.details;
     const status = req.body.status;
-    console.log(tasks)
-    serviceCollection.insertOne({tasks,status})
+    serviceCollection.insertOne({name,email,price,service,description,status})
       .then(result => {
       res.send(result.insertedCount > 0)
      })
