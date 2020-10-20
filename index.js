@@ -76,8 +76,9 @@ client.connect(err => {
 
   app.post('/addServices', (req, res) => {
     const tasks = req.body;
+    const status = req.body.status;
     console.log(tasks)
-    serviceCollection.insertOne(tasks)
+    serviceCollection.insertOne({tasks,status})
       .then(result => {
       res.send(result.insertedCount > 0)
      })
@@ -116,6 +117,16 @@ client.connect(err => {
         .then(result => {
             res.send(result.insertedCount > 0)   
       })     
+  })
+
+  app.patch('/update/:id', (req, res) => {
+    serviceCollection.updateOne({_id: ObjectId(req.params.id)},
+    {
+        $set: {status: req.body.status}
+    })
+    .then(result => {
+        res.send(result.modifiedCount > 0);
+    })
   })
 
 
