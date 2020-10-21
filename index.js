@@ -75,16 +75,19 @@ client.connect(err => {
 
 
   app.post('/addServices', (req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const price = req.body.price;
-    const service = req.body.work;
-    const description = req.body.details;
-    const status = req.body.status;
-    serviceCollection.insertOne({name,email,price,service,description,status})
-      .then(result => {
-      res.send(result.insertedCount > 0)
-     })
+    const tasks = req.body;
+    serviceCollection.insertOne(tasks)
+    .then(result => {
+    res.send(result.insertedCount > 0)
+   })
+    // const name = req.body.name;
+    // const email = req.body.email;
+    // const price = req.body.price;
+    // const service = req.body.work;
+    // const description = req.body.details;
+    // const status = req.body.status;
+    // serviceCollection.insertOne({name,email,price,service,description,status})
+
   })
 
   app.get('/services', (req, res) => {
